@@ -11,7 +11,7 @@
 
 ## 로또 생성
 
-- [ ] LottoSeller는 입력받은 금액에 따라 로또 발행을 요청한다
+- [X] LottoSeller는 입력받은 금액에 따라 로또 발행을 요청한다
 - [X] LottoIssuer는 유효한 Lotto를 N장 발행한다
 
 ## 당첨 번호 입력

@@ -32,7 +32,7 @@ class MoneyTest {
         Money money = new Money(VALID_AMOUNT);
 
         //when
-        int ticketCount = money.lottoCount();
+        int ticketCount = money.calculateLottoCount();
 
         //then
         assertThat(ticketCount).isEqualTo(8);
