@@ -24,6 +24,10 @@ public class Lotto {
         // 로또 번호는 표현 일관성을 가지기 위해 정렬해서 저장하도록 하였습니다.
         this.numbers = numbers.stream().sorted().toList();
     }
+    
+    public List<Integer> numbers() {
+        return numbers;
+    }
 
     private void validateLottoSize(List<Integer> numbers) {
         if (numbers.size() != LOTTO_SIZE) {
