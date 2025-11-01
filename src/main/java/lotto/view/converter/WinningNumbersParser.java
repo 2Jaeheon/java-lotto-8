@@ -6,6 +6,7 @@ import java.util.List;
 public class WinningNumbersParser {
     private static final String ERROR_PREFIX = "[ERROR] ";
     private static final String ERROR_WINNING_FORMAT = ERROR_PREFIX + "당첨 번호는 쉼표(,)로 구분된 6개의 숫자여야 합니다";
+    private static final String ERROR_BONUS_FORMAT = ERROR_PREFIX + "보너스 번호는 숫자여야 합니다";
     private static final int LOTTO_SIZE = 6;
     private static final String DELIMITER = ",";
 
@@ -13,16 +14,25 @@ public class WinningNumbersParser {
     }
 
     public static List<Integer> parseWinningNumbers(String rawInput) {
-        validateNonEmptyInput(rawInput);
-        String[] tokens = rawInput.split(DELIMITER);
+        validateNonEmpty(rawInput, ERROR_WINNING_FORMAT);
+        String[] tokens = rawInput.split(DELIMITER, -1);
         validateLottoNumberCount(tokens);
 
         return parseToIntegerList(tokens);
     }
 
-    private static void validateNonEmptyInput(String rawInput) {
+    public static int parseBonusNumber(String rawInput) {
+        validateNonEmpty(rawInput, ERROR_BONUS_FORMAT);
+        try {
+            return Integer.parseInt(rawInput.trim());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(ERROR_BONUS_FORMAT);
+        }
+    }
+
+    private static void validateNonEmpty(String rawInput, String message) {
         if (rawInput == null || rawInput.trim().isEmpty()) {
-            throw new IllegalArgumentException(ERROR_WINNING_FORMAT);
+            throw new IllegalArgumentException(message);
         }
     }
 
