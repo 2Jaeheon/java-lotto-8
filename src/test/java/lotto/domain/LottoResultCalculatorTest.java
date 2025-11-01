@@ -2,7 +2,6 @@ package lotto.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import lotto.view.converter.WinningNumbersParser;
@@ -54,5 +53,62 @@ class LottoResultCalculatorTest {
         assertThatThrownBy(() -> calculator.decideRank(lotto, null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] WinningNumbers는 null일 수 없습니다");
+    }
+
+    @DisplayName("여러 장의 로또를 채점해 Rank별 개수를 집계한다")
+    @Test
+    void shouldAggregateCountsForEachRankOnce() {
+        //given
+        List<Lotto> lottos = List.of(
+                new Lotto(WinningNumbersParser.parseWinningNumbers("1,2,3,4,5,6")),
+                new Lotto(WinningNumbersParser.parseWinningNumbers("1,2,3,4,5,7")),
+                new Lotto(WinningNumbersParser.parseWinningNumbers("1,2,3,4,5,45")),
+                new Lotto(WinningNumbersParser.parseWinningNumbers("1,2,3,4,45,44")),
+                new Lotto(WinningNumbersParser.parseWinningNumbers("1,2,3,45,44,43")),
+                new Lotto(WinningNumbersParser.parseWinningNumbers("1,45,44,43,42,41"))
+        );
+
+        //when
+        LottoStatistics statistics = calculator.calculateStatistics(lottos, winning);
+
+        //then
+        assertThat(statistics.countOf(Rank.FIRST)).isEqualTo(1);
+        assertThat(statistics.countOf(Rank.SECOND)).isEqualTo(1);
+        assertThat(statistics.countOf(Rank.THIRD)).isEqualTo(1);
+        assertThat(statistics.countOf(Rank.FOURTH)).isEqualTo(1);
+        assertThat(statistics.countOf(Rank.FIFTH)).isEqualTo(1);
+        assertThat(statistics.countOf(Rank.LOSING)).isEqualTo(1);
+    }
+
+    @DisplayName("동일 Rank가 여러 번 등장하면 해당 Rank 개수를 누적 집계한다")
+    @Test
+    void shouldAggregateMultipleSameRank() {
+        //given
+        List<Lotto> lottos = List.of(
+                new Lotto(WinningNumbersParser.parseWinningNumbers("1,2,3,40,41,42")),
+                new Lotto(WinningNumbersParser.parseWinningNumbers("1,2,3,10,11,12")),
+                new Lotto(WinningNumbersParser.parseWinningNumbers("1,2,3,20,21,22"))
+        );
+
+        //when
+        LottoStatistics stats = calculator.calculateStatistics(lottos, winning);
+
+        //then
+        assertThat(stats.countOf(Rank.FIFTH)).isEqualTo(3);
+        assertThat(stats.countOf(Rank.FOURTH)).isEqualTo(0);
+        assertThat(stats.countOf(Rank.LOSING)).isEqualTo(0);
+    }
+
+    @DisplayName("로또 목록이 null이면 예외를 발생한다")
+    @Test
+    void shouldThrowWhenLottosIsNull() {
+        // given
+        WinningNumbers winning = new WinningNumbers(List.of(1, 2, 3, 4, 5, 6), 7);
+        LottoResultCalculator calculator = new LottoResultCalculator();
+
+        // expect
+        assertThatThrownBy(() -> calculator.calculateStatistics(null, winning))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[ERROR] 로또 목록은 null일 수 없습니다");
     }
 }
