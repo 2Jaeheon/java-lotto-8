@@ -28,6 +28,20 @@ public class WinningNumbers {
         this.bonus = bonus;
     }
 
+    public int countMatches(Lotto lotto) {
+        int count = 0;
+        for (int n : lotto.numbers()) {
+            if (this.numbers.contains(n)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public boolean isBonusMatch(Lotto lotto) {
+        return lotto.numbers().contains(this.bonus);
+    }
+
     private void validateNull(List<Integer> numbers) {
         if (numbers == null) {
             throw new IllegalArgumentException(ERROR_NULL);

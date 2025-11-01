@@ -21,7 +21,7 @@
 
 ## 당첨 결과 계산
 
-- [ ] LottoResultCalculator는 각 로또의 번호를 당첨 번호와 비교한다
+- [X] LottoResultCalculator는 각 로또의 번호를 당첨 번호와 비교한다
 - [ ] 일치 개수에 따라 Rank를 결정
 - [ ] Rank별로 개수를 계산한다
 - [ ] 총 수익률을 계산한다
