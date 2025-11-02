@@ -1,6 +1,8 @@
 package lotto.view;
 
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import lotto.domain.model.Lotto;
 import lotto.domain.model.LottoStatistics;
 import lotto.domain.model.Rank;
@@ -16,6 +18,16 @@ public class OutputView {
     private static final String STAT_THIRD_FORMAT = "5개 일치 (%,d원) - %d개\n";
     private static final String STAT_SECOND_FORMAT = "5개 일치, 보너스 볼 일치 (%,d원) - %d개\n";
     private static final String STAT_FIRST_FORMAT = "6개 일치 (%,d원) - %d개\n";
+
+    private static final Map<Rank, String> RANK_FORMAT_MAP = new EnumMap<>(Rank.class);
+
+    static {
+        RANK_FORMAT_MAP.put(Rank.FIFTH, STAT_FIFTH_FORMAT);
+        RANK_FORMAT_MAP.put(Rank.FOURTH, STAT_FOURTH_FORMAT);
+        RANK_FORMAT_MAP.put(Rank.THIRD, STAT_THIRD_FORMAT);
+        RANK_FORMAT_MAP.put(Rank.SECOND, STAT_SECOND_FORMAT);
+        RANK_FORMAT_MAP.put(Rank.FIRST, STAT_FIRST_FORMAT);
+    }
 
     // 상태를 가지지 않고, 오직 콘솔 입출력만 수행하기 때문에
     // 인스턴스화할 필요가 없는 정적 유틸리티 클래스로 설계하였습니다.
@@ -63,25 +75,10 @@ public class OutputView {
     }
 
     private static void printStatLine(Rank rank, int count) {
-        if (rank == Rank.FIFTH) {
-            System.out.printf(STAT_FIFTH_FORMAT, rank.calculatePrize(), count);
-            return;
-        }
-        if (rank == Rank.FOURTH) {
-            System.out.printf(STAT_FOURTH_FORMAT, rank.calculatePrize(), count);
-            return;
-        }
-        if (rank == Rank.THIRD) {
-            System.out.printf(STAT_THIRD_FORMAT, rank.calculatePrize(), count);
-            return;
-        }
-        if (rank == Rank.SECOND) {
-            System.out.printf(STAT_SECOND_FORMAT, rank.calculatePrize(), count);
-            return;
-        }
-        if (rank == Rank.FIRST) {
-            System.out.printf(STAT_FIRST_FORMAT, rank.calculatePrize(), count);
-            return;
+        String format = RANK_FORMAT_MAP.get(rank);
+
+        if (format != null) {
+            System.out.printf(format, rank.calculatePrize(), count);
         }
     }
 
