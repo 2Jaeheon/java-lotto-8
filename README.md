@@ -33,7 +33,7 @@
 
 ## 애플리케이션 실행
 
-- [  ] Controller에서 애플리케이션의 흐름을 제어
+- [X] Controller에서 애플리케이션의 흐름을 제어
 - [  ] AppConfig에서 의존성 주입
 - [  ] Application에서 main 메서드로 실행
 

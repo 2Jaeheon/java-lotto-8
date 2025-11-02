@@ -18,6 +18,10 @@ public class Money {
         return amount / PRICE_PER_LOTTO;
     }
 
+    public int amountValue() {
+        return amount;
+    }
+
     private void validateAmountIsMultipleOfLottoPrice(int amount) {
         if (amount % PRICE_PER_LOTTO != 0) {
             throw new IllegalArgumentException(ERROR_NOT_MULTIPLE);
