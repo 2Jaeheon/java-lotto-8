@@ -5,9 +5,7 @@ import lotto.domain.model.Lotto;
 import lotto.domain.model.Money;
 
 /**
- * 로또 판매라는 책임을 가지고 있습니다
- * 현재는 금액을 받아 로또 발행만 위임하지만,
- * 비즈니스 규칙이 추가될 경우 그 변경을 한 곳에서 처리할 수 있도록 설계되었습니다.
+ * 로또 판매라는 책임을 가지고 있습니다 현재는 금액을 받아 로또 발행만 위임하지만, 비즈니스 규칙이 추가될 경우 그 변경을 한 곳에서 처리할 수 있도록 설계되었습니다.
  */
 public class LottoSeller {
     private static final String ERROR_PREFIX = "[ERROR] ";
