@@ -22,7 +22,7 @@ class LottoStatisticsTest {
         );
 
         //when
-        LottoStatistics statistics = LottoStatistics.createStatistics(ranks);
+        LottoStatistics statistics = LottoStatistics.of(ranks);
 
         //then
         assertThat(statistics.countOf(Rank.FIRST)).isEqualTo(2);
@@ -40,7 +40,7 @@ class LottoStatisticsTest {
         List<Rank> ranks = List.of();
 
         //when
-        LottoStatistics statistics = LottoStatistics.createStatistics(ranks);
+        LottoStatistics statistics = LottoStatistics.of(ranks);
 
         //then
         for (Rank rank : Rank.values()) {
@@ -53,11 +53,11 @@ class LottoStatisticsTest {
     void shouldThrowWhenImmutableFix() {
         //given
         List<Rank> ranks = List.of(Rank.FIRST);
-        LottoStatistics statistics = LottoStatistics.createStatistics(ranks);
+        LottoStatistics statistics = LottoStatistics.of(ranks);
 
         //when
         List<Rank> modifiedRanks = List.of(Rank.FIRST, Rank.SECOND);
-        LottoStatistics newStatistics = LottoStatistics.createStatistics(modifiedRanks);
+        LottoStatistics newStatistics = LottoStatistics.of(modifiedRanks);
 
         //then
         assertThat(statistics.countOf(Rank.FIRST)).isEqualTo(1);
@@ -72,7 +72,7 @@ class LottoStatisticsTest {
     void shouldReturnTotalPrizeAndProfitRate() {
         // given
         List<Rank> ranks = List.of(Rank.FIFTH);
-        LottoStatistics stats = LottoStatistics.createStatistics(ranks);
+        LottoStatistics stats = LottoStatistics.of(ranks);
         long totalSpent = 8000;
 
         // when
@@ -93,7 +93,7 @@ class LottoStatisticsTest {
                 Rank.THIRD,
                 Rank.FIFTH, Rank.FIFTH, Rank.FIFTH
         );
-        LottoStatistics stats = LottoStatistics.createStatistics(ranks);
+        LottoStatistics stats = LottoStatistics.of(ranks);
 
         //when
         long expected = 2 * Rank.FIRST.calculatePrize()
@@ -108,7 +108,7 @@ class LottoStatisticsTest {
     @Test
     void shouldReturnZeroWhenTotalSpentNonPositive() {
         //given
-        LottoStatistics stats = LottoStatistics.createStatistics(List.of());
+        LottoStatistics stats = LottoStatistics.of(List.of());
 
         //when & then
         assertThat(stats.profitRate(0)).isEqualTo(0.0);
@@ -119,7 +119,7 @@ class LottoStatisticsTest {
     @Test
     void shouldComputeProfitRate() {
         //given
-        LottoStatistics stats = LottoStatistics.createStatistics(List.of(Rank.FIFTH));
+        LottoStatistics stats = LottoStatistics.of(List.of(Rank.FIFTH));
 
         //when
         long totalSpent = 8000;

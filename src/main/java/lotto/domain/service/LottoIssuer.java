@@ -1,7 +1,7 @@
 package lotto.domain.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 import lotto.domain.generator.LottoGenerator;
 import lotto.domain.model.Lotto;
 
@@ -17,14 +17,10 @@ public class LottoIssuer {
     }
 
     public List<Lotto> issue(int count) {
-        List<Lotto> lottos = new ArrayList<>(count);
-
-        for (int i = 0; i < count; i++) {
-            List<Integer> lottoNumbers = lottoGenerator.generate();
-            lottos.add(new Lotto(lottoNumbers));
-        }
-
-        return lottos;
+        return IntStream.range(0, count)
+                .mapToObj(i -> lottoGenerator.generate())
+                .map(Lotto::new)
+                .toList();
     }
 
     private void validateNotNull(LottoGenerator generator) {

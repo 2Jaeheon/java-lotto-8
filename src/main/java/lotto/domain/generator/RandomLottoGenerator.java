@@ -8,7 +8,6 @@ public class RandomLottoGenerator implements LottoGenerator {
     public List<Integer> generate() {
         return Randoms.pickUniqueNumbersInRange(1, 45, 6)
                 .stream()
-                .sorted()
                 .toList();
     }
 }

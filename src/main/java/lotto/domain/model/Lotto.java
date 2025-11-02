@@ -21,7 +21,7 @@ public class Lotto {
         validateDuplicate(numbers);
         validateRange(numbers);
 
-        // 로또 번호는 표현 일관성을 가지기 위해 정렬해서 저장하도록 하였습니다.
+        // 출력 시 일관된 순서를 보장하기 위해 정렬
         this.numbers = numbers.stream().sorted().toList();
     }
 
@@ -44,7 +44,6 @@ public class Lotto {
     }
 
     private void validateRange(List<Integer> numbers) {
-        // 직관성을 위해 stream 대신 for-each 문을 사용하였습니다.
         for (Integer number : numbers) {
             if (number < MIN_NUMBER || number > MAX_NUMBER) {
                 throw new IllegalArgumentException(ERROR_NUMBER_RANGE);
@@ -57,7 +56,6 @@ public class Lotto {
             throw new IllegalArgumentException(ERROR_NUMBER_NULL);
         }
 
-        // 직관성을 위해 stream 대신 for-each 문을 사용하였습니다.
         for (Integer n : numbers) {
             if (n == null) {
                 throw new IllegalArgumentException(ERROR_NUMBER_NULL);

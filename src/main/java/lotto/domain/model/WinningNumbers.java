@@ -23,19 +23,15 @@ public class WinningNumbers {
         validateRange(numbers);
         validateBonus(bonus, numbers);
 
-        // 당첨 번호는 표현 일관성을 가지기 위해 정렬해서 저장하도록 하였습니다.
+        // 출력 시 일관된 순서를 보장하기 위해 정렬하여 저장
         this.numbers = numbers.stream().sorted().toList();
         this.bonus = bonus;
     }
 
     public int countMatches(Lotto lotto) {
-        int count = 0;
-        for (int n : lotto.numbers()) {
-            if (this.numbers.contains(n)) {
-                count++;
-            }
-        }
-        return count;
+        return (int) lotto.numbers().stream()
+                .filter(this.numbers::contains)
+                .count();
     }
 
     public boolean isBonusMatch(Lotto lotto) {

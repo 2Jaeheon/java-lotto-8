@@ -25,7 +25,7 @@ public class LottoController {
         // 입력
         Money money = requestMoney();
         List<Lotto> purchasedLottos = lottoSeller.buy(money);
-        printPurchase(purchasedLottos, money);
+        printPurchase(purchasedLottos);
 
         // 처리
         WinningNumbers winningNumbers = requestWinningNumbers();
@@ -35,8 +35,11 @@ public class LottoController {
         printResults(statistics, money);
     }
 
-    // 금액에 대해 문자열 파싱은 Parser에서 일원화하고,
-    // 값 검증은 도메인(Money)에 위임.
+    /**
+     * 유효한 Money 객체가 생성될 때까지 구입 금액 입력을 재시도합니다.
+     * Money 생성자가 스스로 모든 유효성 검증을 책임지므로,
+     * 별도 팩토리 없이 컨트롤러가 직접 생성 흐름을 제어합니다.
+     */
     private Money requestMoney() {
         while (true) {
             try {
@@ -49,13 +52,16 @@ public class LottoController {
         }
     }
 
-    private void printPurchase(List<Lotto> purchased, Money money) {
-        OutputView.printPurchaseCount(money.calculateLottoCount());
+    private void printPurchase(List<Lotto> purchased) {
+        OutputView.printPurchaseCount(purchased.size());
         OutputView.printPurchasedLottos(purchased);
     }
 
-    // 당첨, 보너스 번호에 대한 문자열 파싱은 Parser에서 일원화하고,
-    // 값 검증은 도메인(WinningNumbers)에 위임.
+    /**
+     * 유효한 WinningNumbers 객체가 생성될 때까지 당첨/보너스 번호 입력을 재시도합니다.
+     * WinningNumbers 생성자가 모든 유효성 검증(중복, 범위 등)을 전담하므로,
+     * 별도 팩토리 없이 컨트롤러가 직접 생성 흐름을 제어합니다.
+     */
     private WinningNumbers requestWinningNumbers() {
         while (true) {
             try {
@@ -72,7 +78,6 @@ public class LottoController {
         }
     }
 
-    // View에 표현 규칙을 위임하고, Controller는 값만 전달하도록 구현.
     private void printResults(LottoStatistics stats, Money money) {
         OutputView.printLottoStatistics(stats);
         double profitRate = stats.profitRate(money.amountValue());

@@ -5,12 +5,14 @@ import lotto.domain.model.Lotto;
 import lotto.domain.model.Money;
 
 /**
- * LottoSeller는 구매라는 도메인 행위를 담당합니다.
- * 현재는 금액을 받아 로또 발행만 위임하지만, 비즈니스 규칙이 추가될 경우 그 변경을 한 곳에서 처리할 수 있도록 설계되었습니다.
+ * 로또 판매라는 책임을 가지고 있습니다
+ * 현재는 금액을 받아 로또 발행만 위임하지만,
+ * 비즈니스 규칙이 추가될 경우 그 변경을 한 곳에서 처리할 수 있도록 설계되었습니다.
  */
 public class LottoSeller {
-    private static final String ERROR_LOTTO_ISSUER_NULL = "[ERROR] LottoIssuer는 null일 수 없습니다";
-    private static final String ERROR_MONEY_NULL = "[ERROR] Money는 null일 수 없습니다";
+    private static final String ERROR_PREFIX = "[ERROR] ";
+    private static final String ERROR_LOTTO_ISSUER_NULL = ERROR_PREFIX + "LottoIssuer는 null일 수 없습니다";
+    private static final String ERROR_MONEY_NULL = ERROR_PREFIX + "Money는 null일 수 없습니다";
 
     private final LottoIssuer issuer;
 

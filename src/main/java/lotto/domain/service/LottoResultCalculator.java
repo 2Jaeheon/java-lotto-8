@@ -1,6 +1,5 @@
 package lotto.domain.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import lotto.domain.model.Lotto;
 import lotto.domain.model.LottoStatistics;
@@ -26,11 +25,11 @@ public class LottoResultCalculator {
         validateNotNull(lottos, ERROR_LOTTOS_NULL);
         validateNotNull(winningNumbers, ERROR_WINNING_NULL);
 
-        List<Rank> ranks = new ArrayList<>(lottos.size());
-        for (Lotto lotto : lottos) {
-            ranks.add(decideRank(lotto, winningNumbers));
-        }
-        return LottoStatistics.createStatistics(ranks);
+        List<Rank> ranks = lottos.stream()
+                .map(lotto -> decideRank(lotto, winningNumbers))
+                .toList();
+
+        return LottoStatistics.of(ranks);
     }
 
     private void validateNotNull(Object target, String message) {

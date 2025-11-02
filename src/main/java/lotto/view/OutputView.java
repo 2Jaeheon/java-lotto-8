@@ -7,11 +7,15 @@ import lotto.domain.model.Lotto;
 import lotto.domain.model.LottoStatistics;
 import lotto.domain.model.Rank;
 
+/** 이 클래스는 LottoStatistics, Lotto 같은 도메인 모델을 직접 참조(의존)합니다
+ *  현재 View는 데이터를 읽기 전용(Read-Only)으로만 사용하기 때문에,
+ *  프로젝트 규모상 DTO를 도입하는 것은 불필요한 복잡성을 야기한다고 판단했습니다.
+ */
 public class OutputView {
     private static final String PURCHASE_MESSAGE_FORMAT = "%d개를 구매했습니다.";
     private static final String STAT_HEADER = "당첨 통계";
     private static final String STAT_SEPARATOR = "---";
-    private static final String PROFIT_RATE_FORMAT = "총 수익률은 %.1f%%입니다.";
+    private static final String PROFIT_RATE_FORMAT = "총 수익률은 %.1f%%입니다.\n";
 
     private static final String STAT_FIFTH_FORMAT = "3개 일치 (%,d원) - %d개\n";
     private static final String STAT_FOURTH_FORMAT = "4개 일치 (%,d원) - %d개\n";
@@ -29,8 +33,6 @@ public class OutputView {
         RANK_FORMAT_MAP.put(Rank.FIRST, STAT_FIRST_FORMAT);
     }
 
-    // 상태를 가지지 않고, 오직 콘솔 입출력만 수행하기 때문에
-    // 인스턴스화할 필요가 없는 정적 유틸리티 클래스로 설계하였습니다.
     private OutputView() {}
 
     public static void printPurchaseCount(int count) {
@@ -45,12 +47,6 @@ public class OutputView {
         }
     }
 
-    /**
-     * 출력 형식은 도메인이 아닌 View단에서 처리하였습니다.
-     * 도메인은 무엇을 계산할지에 대해서 집중하고,
-     * 어떻게 보여줄지는 View에서 처리해야 한다고 생각했습니다.
-     * 따라서 출력 문구는 OutputView에서 처리하였습니다.
-     */
     public static void printLottoStatistics(LottoStatistics statistics) {
         printStatisticsHeader();
 
