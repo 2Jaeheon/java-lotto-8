@@ -7,7 +7,7 @@ import lotto.domain.model.Lotto;
 
 public class LottoIssuer {
     private static final String ERROR_PREFIX = "[ERROR] ";
-    private static final String ERROR_NULL = ERROR_PREFIX + "lottoGenerator는 null일 수 없습니다";
+    private static final String ERROR_NULL = ERROR_PREFIX + "LottoGenerator는 null일 수 없습니다";
 
     private final LottoGenerator lottoGenerator;
 

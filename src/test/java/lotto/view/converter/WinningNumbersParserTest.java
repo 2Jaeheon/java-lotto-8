@@ -90,7 +90,7 @@ class WinningNumbersParserTest {
     void shouldThrowWhenBonusIsNonNumeric(String input) {
         assertThatThrownBy(() -> WinningNumbersParser.parseBonus(input))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 보너스 번호는 숫자여야 합니다");
+                .hasMessage("[ERROR] 보너스 번호는 숫자로 입력해야 합니다");
     }
 
     @DisplayName("보너스 번호가 null 또는 빈 문자열이면 예외")
@@ -100,6 +100,6 @@ class WinningNumbersParserTest {
     void shouldThrowWhenBonusIsNullOrEmpty(String input) {
         assertThatThrownBy(() -> WinningNumbersParser.parseBonus(input))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 보너스 번호는 숫자여야 합니다");
+                .hasMessage("[ERROR] 보너스 번호는 숫자로 입력해야 합니다");
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 public class WinningNumbersParser {
     private static final String ERROR_PREFIX = "[ERROR] ";
     private static final String ERROR_WINNING_FORMAT = ERROR_PREFIX + "당첨 번호는 쉼표(,)로 구분된 6개의 숫자여야 합니다";
-    private static final String ERROR_BONUS_FORMAT = ERROR_PREFIX + "보너스 번호는 숫자여야 합니다";
+    private static final String ERROR_BONUS_FORMAT = ERROR_PREFIX + "보너스 번호는 숫자로 입력해야 합니다";
     private static final int LOTTO_SIZE = 6;
     private static final String DELIMITER = ",";
 

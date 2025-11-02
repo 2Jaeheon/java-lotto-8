@@ -22,29 +22,31 @@ public class LottoController {
     }
 
     public void run() {
-        try {
-            // 입력
-            Money money = requestMoney();
-            List<Lotto> purchasedLottos = lottoSeller.buy(money);
-            printPurchase(purchasedLottos, money);
+        // 입력
+        Money money = requestMoney();
+        List<Lotto> purchasedLottos = lottoSeller.buy(money);
+        printPurchase(purchasedLottos, money);
 
-            // 처리
-            WinningNumbers winningNumbers = requestWinningNumbers();
-            LottoStatistics statistics = calculator.calculateStatistics(purchasedLottos, winningNumbers);
+        // 처리
+        WinningNumbers winningNumbers = requestWinningNumbers();
+        LottoStatistics statistics = calculator.calculateStatistics(purchasedLottos, winningNumbers);
 
-            // 출력
-            printResults(statistics, money);
-        } catch (Exception e) { // TODO: 예외처리에 관한 리팩터링이 필요
-            System.out.println(e.getMessage());
-        }
+        // 출력
+        printResults(statistics, money);
     }
 
     // 금액에 대해 문자열 파싱은 Parser에서 일원화하고,
     // 값 검증은 도메인(Money)에 위임.
     private Money requestMoney() {
-        String rawAmount = InputView.readPurchaseAmount();
-        int amount = MoneyParser.parse(rawAmount);
-        return new Money(amount);
+        while (true) {
+            try {
+                String rawAmount = InputView.readPurchaseAmount();
+                int amount = MoneyParser.parse(rawAmount);
+                return new Money(amount);
+            } catch (IllegalArgumentException e) {
+                OutputView.printError(e.getMessage());
+            }
+        }
     }
 
     private void printPurchase(List<Lotto> purchased, Money money) {
@@ -55,13 +57,19 @@ public class LottoController {
     // 당첨, 보너스 번호에 대한 문자열 파싱은 Parser에서 일원화하고,
     // 값 검증은 도메인(WinningNumbers)에 위임.
     private WinningNumbers requestWinningNumbers() {
-        String rawWinning = InputView.readWinningNumbers();
-        List<Integer> numbers = WinningNumbersParser.parse(rawWinning);
+        while (true) {
+            try {
+                String rawWinning = InputView.readWinningNumbers();
+                List<Integer> numbers = WinningNumbersParser.parse(rawWinning);
 
-        String rawBonus = InputView.readBonusNumber();
-        int bonus = WinningNumbersParser.parseBonus(rawBonus);
+                String rawBonus = InputView.readBonusNumber();
+                int bonus = WinningNumbersParser.parseBonus(rawBonus);
 
-        return new WinningNumbers(numbers, bonus);
+                return new WinningNumbers(numbers, bonus);
+            } catch (IllegalArgumentException e) {
+                OutputView.printError(e.getMessage());
+            }
+        }
     }
 
     // View에 표현 규칙을 위임하고, Controller는 값만 전달하도록 구현.

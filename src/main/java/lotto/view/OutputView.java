@@ -53,6 +53,10 @@ public class OutputView {
         System.out.printf(PROFIT_RATE_FORMAT, profitRate);
     }
 
+    public static void printError(String message) {
+        System.out.println(message);
+    }
+
     private static void printStatisticsHeader() {
         System.out.println(STAT_HEADER);
         System.out.println(STAT_SEPARATOR);

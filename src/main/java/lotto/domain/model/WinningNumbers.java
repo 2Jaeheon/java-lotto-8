@@ -8,9 +8,9 @@ public class WinningNumbers {
     private static final int MAX_NUMBER = 45;
     private static final String ERROR_PREFIX = "[ERROR] ";
     private static final String ERROR_SIZE = ERROR_PREFIX + "당첨 번호는 6개여야 합니다";
-    private static final String ERROR_DUPLICATE = ERROR_PREFIX + "당첨 번호에 중복이 존재합니다";
+    private static final String ERROR_DUPLICATE = ERROR_PREFIX + "당첨 번호는 중복될 수 없습니다";
     private static final String ERROR_RANGE = ERROR_PREFIX + "당첨 번호는 1 ~ 45 사이여야 합니다";
-    private static final String ERROR_BONUS_DUPLICATE = ERROR_PREFIX + "보너스 번호가 당첨 번호와 중복됩니다";
+    private static final String ERROR_BONUS_DUPLICATE = ERROR_PREFIX + "보너스 번호는 당첨 번호와 중복될 수 없습니다";
     private static final String ERROR_NULL = ERROR_PREFIX + "당첨 번호에 null이 포함될 수 없습니다";
 
     private final List<Integer> numbers;

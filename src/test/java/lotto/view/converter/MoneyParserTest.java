@@ -19,7 +19,7 @@ class MoneyParserTest {
         //when & then
         assertThatThrownBy(() -> MoneyParser.parse(input))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 금액은 숫자여야 합니다");
+                .hasMessage("[ERROR] 구입 금액은 숫자로 입력해야 합니다");
     }
 
     @DisplayName("사용자가 올바른 숫자를 입력하면 해당 금액을 반환한다")
@@ -41,6 +41,6 @@ class MoneyParserTest {
     void shouldThrowOnInvalidInputs(String raw) {
         assertThatThrownBy(() -> MoneyParser.parse(raw))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 금액은 숫자여야 합니다");
+                .hasMessage("[ERROR] 구입 금액은 숫자로 입력해야 합니다");
     }
 }

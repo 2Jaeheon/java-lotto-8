@@ -3,8 +3,8 @@ package lotto.domain.model;
 public class Money {
     private static final int PRICE_PER_LOTTO = 1000;
     private static final String ERROR_PREFIX = "[ERROR] ";
-    private static final String ERROR_BELOW_MIN = ERROR_PREFIX + "로또 구입 금액이 1000원 미만입니다";
-    private static final String ERROR_NOT_MULTIPLE = ERROR_PREFIX + "로또 구입 금액이 1000원 단위가 아닙니다";
+    private static final String ERROR_BELOW_MIN = ERROR_PREFIX + "구입 금액은 1,000원 이상이어야 합니다";
+    private static final String ERROR_NOT_MULTIPLE = ERROR_PREFIX + "구입 금액은 1,000원 단위여야 합니다";
 
     private final int amount;
 

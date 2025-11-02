@@ -57,7 +57,7 @@ class LottoIssuerTest {
     void shouldThrowWhenNullGenerator() {
         assertThatThrownBy(() -> new LottoIssuer(null))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] lottoGenerator는 null일 수 없습니다");
+                .hasMessage("[ERROR] LottoGenerator는 null일 수 없습니다");
 
     }
 }

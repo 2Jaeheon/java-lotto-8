@@ -23,7 +23,7 @@ class WinningNumbersTest {
     void shouldThrowWhenWinningNumbersDuplicate() {
         assertThatThrownBy(() -> new WinningNumbers(List.of(1, 2, 3, 4, 5, 5), 6))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 당첨 번호에 중복이 존재합니다");
+                .hasMessage("[ERROR] 당첨 번호는 중복될 수 없습니다");
     }
 
     @DisplayName("당첨 번호가 범위를 벗어나면 예외를 발생한다")
@@ -39,7 +39,7 @@ class WinningNumbersTest {
     void shouldThrowWhenBonusDuplicatedWithWinningNumbers() {
         assertThatThrownBy(() -> new WinningNumbers(List.of(1, 2, 3, 4, 5, 6), 6))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] 보너스 번호가 당첨 번호와 중복됩니다");
+                .hasMessage("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다");
     }
 
     @DisplayName("로또와 당첨 번호의 일치 개수를 계산한다")

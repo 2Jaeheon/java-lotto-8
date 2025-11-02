@@ -9,8 +9,8 @@ public class Lotto {
 
     private static final String ERROR_PREFIX = "[ERROR] ";
     private static final String ERROR_LOTTO_SIZE = ERROR_PREFIX + "로또 번호는 6개여야 합니다";
-    private static final String ERROR_NUMBER_DUPLICATE = ERROR_PREFIX + "로또 번호에 중복이 존재합니다";
-    private static final String ERROR_NUMBER_RANGE = ERROR_PREFIX + "로또 번호는 1 ~ 45 사이여야 합니다";
+    private static final String ERROR_NUMBER_DUPLICATE = ERROR_PREFIX + "로또 번호는 중복될 수 없습니다";
+    private static final String ERROR_NUMBER_RANGE = ERROR_PREFIX + "로또 번호는 1부터 45 사이의 숫자여야 합니다";
     private static final String ERROR_NUMBER_NULL = ERROR_PREFIX + "로또 번호에 null이 포함될 수 없습니다";
 
     private final List<Integer> numbers;
@@ -24,7 +24,7 @@ public class Lotto {
         // 로또 번호는 표현 일관성을 가지기 위해 정렬해서 저장하도록 하였습니다.
         this.numbers = numbers.stream().sorted().toList();
     }
-    
+
     public List<Integer> numbers() {
         return numbers;
     }
