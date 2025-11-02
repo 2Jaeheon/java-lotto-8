@@ -9,6 +9,7 @@ public class OutputView {
     private static final String PURCHASE_MESSAGE_FORMAT = "%d개를 구매했습니다.";
     private static final String STAT_HEADER = "당첨 통계";
     private static final String STAT_SEPARATOR = "---";
+    private static final String PROFIT_RATE_FORMAT = "총 수익률은 %.1f%%입니다.";
 
     private static final String STAT_FIFTH_FORMAT = "3개 일치 (%,d원) - %d개\n";
     private static final String STAT_FOURTH_FORMAT = "4개 일치 (%,d원) - %d개\n";
@@ -46,6 +47,10 @@ public class OutputView {
         printStatLine(Rank.THIRD, statistics.countOf(Rank.THIRD));
         printStatLine(Rank.SECOND, statistics.countOf(Rank.SECOND));
         printStatLine(Rank.FIRST, statistics.countOf(Rank.FIRST));
+    }
+
+    public static void printProfitRate(double profitRate) {
+        System.out.printf(PROFIT_RATE_FORMAT, profitRate);
     }
 
     private static void printStatisticsHeader() {
