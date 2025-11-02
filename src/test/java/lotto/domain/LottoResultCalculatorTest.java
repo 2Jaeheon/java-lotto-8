@@ -43,7 +43,7 @@ class LottoResultCalculatorTest {
     void shouldThrowWhenLottoIsNull() {
         assertThatThrownBy(() -> calculator.decideRank(null, winning))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] Lotto는 null일 수 없습니다");
+                .hasMessage("[ERROR] 로또는 null일 수 없습니다");
     }
 
     @DisplayName("winningNumbers가 null이면 예외를 던진다")
@@ -52,7 +52,7 @@ class LottoResultCalculatorTest {
         Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
         assertThatThrownBy(() -> calculator.decideRank(lotto, null))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] WinningNumbers는 null일 수 없습니다");
+                .hasMessage("[ERROR] 당첨 번호는 null일 수 없습니다");
     }
 
     @DisplayName("여러 장의 로또를 채점해 Rank별 개수를 집계한다")

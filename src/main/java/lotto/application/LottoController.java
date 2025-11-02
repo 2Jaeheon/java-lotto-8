@@ -22,17 +22,21 @@ public class LottoController {
     }
 
     public void run() {
-        // 입력
-        Money money = requestMoney();
-        List<Lotto> purchasedLottos = lottoSeller.buy(money);
-        printPurchase(purchasedLottos, money);
+        try {
+            // 입력
+            Money money = requestMoney();
+            List<Lotto> purchasedLottos = lottoSeller.buy(money);
+            printPurchase(purchasedLottos, money);
 
-        // 처리
-        WinningNumbers winningNumbers = requestWinningNumbers();
-        LottoStatistics statistics = calculator.calculateStatistics(purchasedLottos, winningNumbers);
+            // 처리
+            WinningNumbers winningNumbers = requestWinningNumbers();
+            LottoStatistics statistics = calculator.calculateStatistics(purchasedLottos, winningNumbers);
 
-        // 출력
-        printResults(statistics, money);
+            // 출력
+            printResults(statistics, money);
+        } catch (Exception e) { // TODO: 예외처리에 관한 리팩터링이 필요
+            System.out.println(e.getMessage());
+        }
     }
 
     // 금액에 대해 문자열 파싱은 Parser에서 일원화하고,
