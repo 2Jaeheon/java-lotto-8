@@ -1,16 +1,15 @@
 package lotto.application;
 
-import lotto.domain.Lotto;
-import lotto.domain.LottoIssuer;
-import lotto.domain.LottoNumberGenerator;
-import lotto.domain.LottoResultCalculator;
-import lotto.domain.LottoSeller;
-import lotto.domain.NumberGenerator;
+import lotto.domain.service.LottoIssuer;
+import lotto.domain.generator.RandomLottoGenerator;
+import lotto.domain.service.LottoResultCalculator;
+import lotto.domain.service.LottoSeller;
+import lotto.domain.generator.LottoGenerator;
 
 public class AppConfig {
 
     public LottoController lottoController() {
-        NumberGenerator generator = new LottoNumberGenerator();
+        LottoGenerator generator = new RandomLottoGenerator();
         LottoIssuer issuer = new LottoIssuer(generator);
         LottoSeller seller = new LottoSeller(issuer);
 

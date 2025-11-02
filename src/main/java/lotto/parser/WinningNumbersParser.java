@@ -1,4 +1,4 @@
-package lotto.view.converter;
+package lotto.parser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class WinningNumbersParser {
     private WinningNumbersParser() {
     }
 
-    public static List<Integer> parseWinningNumbers(String rawInput) {
+    public static List<Integer> parse(String rawInput) {
         validateNonEmpty(rawInput, ERROR_WINNING_FORMAT);
         String[] tokens = rawInput.split(DELIMITER, -1);
         validateLottoNumberCount(tokens);
@@ -21,7 +21,7 @@ public class WinningNumbersParser {
         return parseToIntegerList(tokens);
     }
 
-    public static int parseBonusNumber(String rawInput) {
+    public static int parseBonus(String rawInput) {
         validateNonEmpty(rawInput, ERROR_BONUS_FORMAT);
         try {
             return Integer.parseInt(rawInput.trim());

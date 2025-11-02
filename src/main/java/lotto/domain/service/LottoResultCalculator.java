@@ -1,7 +1,11 @@
-package lotto.domain;
+package lotto.domain.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import lotto.domain.model.Lotto;
+import lotto.domain.model.LottoStatistics;
+import lotto.domain.model.Rank;
+import lotto.domain.model.WinningNumbers;
 
 public class LottoResultCalculator {
     private static final String ERROR_PREFIX = "[ERROR] ";

@@ -4,16 +4,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
+import lotto.domain.generator.LottoGenerator;
+import lotto.domain.model.Lotto;
+import lotto.domain.service.LottoIssuer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class LottoIssuerTest {
-    NumberGenerator fakeGenerator;
+    LottoGenerator fakeGenerator;
 
     @BeforeEach
     void setUp() {
-        fakeGenerator = new NumberGenerator() {
+        fakeGenerator = new LottoGenerator() {
             @Override
             public List<Integer> generate() {
                 return List.of(1, 2, 3, 4, 5, 6);
@@ -54,7 +57,7 @@ class LottoIssuerTest {
     void shouldThrowWhenNullGenerator() {
         assertThatThrownBy(() -> new LottoIssuer(null))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("[ERROR] NumberGenerator는 null일 수 없습니다");
+                .hasMessage("[ERROR] lottoGenerator는 null일 수 없습니다");
 
     }
 }

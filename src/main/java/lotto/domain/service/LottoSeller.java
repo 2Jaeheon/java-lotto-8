@@ -1,6 +1,8 @@
-package lotto.domain;
+package lotto.domain.service;
 
 import java.util.List;
+import lotto.domain.model.Lotto;
+import lotto.domain.model.Money;
 
 /**
  * LottoSeller는 구매라는 도메인 행위를 담당합니다.

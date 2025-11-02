@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
+import lotto.parser.WinningNumbersParser;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -21,7 +22,7 @@ class WinningNumbersParserTest {
     })
     void shouldParseValidWinningNumbers(String input, String expectedListString) {
         // when
-        List<Integer> result = WinningNumbersParser.parseWinningNumbers(input);
+        List<Integer> result = WinningNumbersParser.parse(input);
 
         // then
         assertThat(result.toString()).isEqualTo(expectedListString);
@@ -32,7 +33,7 @@ class WinningNumbersParserTest {
     @NullAndEmptySource
     @ValueSource(strings = {"   "})
     void shouldThrowWhenInputIsNullOrEmpty(String input) {
-        assertThatThrownBy(() -> WinningNumbersParser.parseWinningNumbers(input))
+        assertThatThrownBy(() -> WinningNumbersParser.parse(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 당첨 번호는 쉼표(,)로 구분된 6개의 숫자여야 합니다");
     }
@@ -41,7 +42,7 @@ class WinningNumbersParserTest {
     @ParameterizedTest
     @ValueSource(strings = {"1,2,3,4,5,x", "1,2,3,4,5,@", "1,2,3,4, ,6"})
     void shouldThrowWhenNonNumericTokenExists(String input) {
-        assertThatThrownBy(() -> WinningNumbersParser.parseWinningNumbers(input))
+        assertThatThrownBy(() -> WinningNumbersParser.parse(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 당첨 번호는 쉼표(,)로 구분된 6개의 숫자여야 합니다");
     }
@@ -50,7 +51,7 @@ class WinningNumbersParserTest {
     @ParameterizedTest
     @ValueSource(strings = {"1,2,3,4,5", "1,2,3,4,5,6,7"})
     void shouldThrowWhenLottoSizeIsInvalid(String input) {
-        assertThatThrownBy(() -> WinningNumbersParser.parseWinningNumbers(input))
+        assertThatThrownBy(() -> WinningNumbersParser.parse(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 당첨 번호는 쉼표(,)로 구분된 6개의 숫자여야 합니다");
     }
@@ -59,7 +60,7 @@ class WinningNumbersParserTest {
     @ParameterizedTest
     @ValueSource(strings = {"1,2,3,4,5,6,", ",1,2,3,4,5,6"})
     void shouldThrowWhenLeadingOrTrailingComma(String input) {
-        assertThatThrownBy(() -> WinningNumbersParser.parseWinningNumbers(input))
+        assertThatThrownBy(() -> WinningNumbersParser.parse(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 당첨 번호는 쉼표(,)로 구분된 6개의 숫자여야 합니다");
     }
@@ -68,7 +69,7 @@ class WinningNumbersParserTest {
     @ParameterizedTest
     @ValueSource(strings = {"1,,3,4,5,6"})
     void shouldThrowWhenEmptyTokenExists(String input) {
-        assertThatThrownBy(() -> WinningNumbersParser.parseWinningNumbers(input))
+        assertThatThrownBy(() -> WinningNumbersParser.parse(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 당첨 번호는 쉼표(,)로 구분된 6개의 숫자여야 합니다");
     }
@@ -78,8 +79,8 @@ class WinningNumbersParserTest {
     @DisplayName("보너스 번호가 공백 포함된 정상 문자인 경우 정수를 반환한다")
     @ParameterizedTest
     @ValueSource(strings = {"7", " 7 ", "45"})
-    void shouldParseBonusNumberWithSpaces(String input) {
-        int n = WinningNumbersParser.parseBonusNumber(input);
+    void shouldParseBonusWithSpaces(String input) {
+        int n = WinningNumbersParser.parseBonus(input);
         assertThat(n).isIn(7, 45);
     }
 
@@ -87,7 +88,7 @@ class WinningNumbersParserTest {
     @ParameterizedTest
     @ValueSource(strings = {"--1", "1x", "%"})
     void shouldThrowWhenBonusIsNonNumeric(String input) {
-        assertThatThrownBy(() -> WinningNumbersParser.parseBonusNumber(input))
+        assertThatThrownBy(() -> WinningNumbersParser.parseBonus(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 보너스 번호는 숫자여야 합니다");
     }
@@ -97,7 +98,7 @@ class WinningNumbersParserTest {
     @NullAndEmptySource
     @ValueSource(strings = {"   "})
     void shouldThrowWhenBonusIsNullOrEmpty(String input) {
-        assertThatThrownBy(() -> WinningNumbersParser.parseBonusNumber(input))
+        assertThatThrownBy(() -> WinningNumbersParser.parseBonus(input))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("[ERROR] 보너스 번호는 숫자여야 합니다");
     }

@@ -2,9 +2,13 @@ package lotto.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import lotto.domain.generator.LottoGenerator;
+import lotto.domain.model.Lotto;
+import lotto.domain.model.Money;
+import lotto.domain.service.LottoIssuer;
+import lotto.domain.service.LottoSeller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +19,7 @@ class LottoSellerTest {
 
     @BeforeEach
     void setUp() {
-        fakeIssuer = new LottoIssuer(new NumberGenerator() {
+        fakeIssuer = new LottoIssuer(new LottoGenerator() {
             @Override
             public List<Integer> generate() {
                 return List.of(1, 2, 3, 4, 5, 6);

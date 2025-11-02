@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.domain.model;
 
 public class Money {
     private static final int PRICE_PER_LOTTO = 1000;

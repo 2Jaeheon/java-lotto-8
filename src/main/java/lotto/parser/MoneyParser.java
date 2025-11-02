@@ -1,4 +1,4 @@
-package lotto.view.converter;
+package lotto.parser;
 
 public class MoneyParser {
     private static final String ERROR_PREFIX = "[ERROR] ";

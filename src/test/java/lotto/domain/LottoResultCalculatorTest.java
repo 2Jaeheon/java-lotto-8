@@ -4,7 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
-import lotto.view.converter.WinningNumbersParser;
+import lotto.domain.model.Lotto;
+import lotto.domain.model.LottoStatistics;
+import lotto.domain.model.Rank;
+import lotto.domain.model.WinningNumbers;
+import lotto.domain.service.LottoResultCalculator;
+import lotto.parser.WinningNumbersParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,7 +38,7 @@ class LottoResultCalculatorTest {
             "1, 45, 44, 43, 42, 7 | LOSING"
     })
     void shouldDecideRankByNumbers(String lottoNumbers, Rank expected) {
-        Lotto lotto = new Lotto(WinningNumbersParser.parseWinningNumbers(lottoNumbers));
+        Lotto lotto = new Lotto(WinningNumbersParser.parse(lottoNumbers));
         Rank result = calculator.decideRank(lotto, winning);
         assertThat(result).isEqualTo(expected);
     }
@@ -60,12 +65,12 @@ class LottoResultCalculatorTest {
     void shouldAggregateCountsForEachRankOnce() {
         //given
         List<Lotto> lottos = List.of(
-                new Lotto(WinningNumbersParser.parseWinningNumbers("1,2,3,4,5,6")),
-                new Lotto(WinningNumbersParser.parseWinningNumbers("1,2,3,4,5,7")),
-                new Lotto(WinningNumbersParser.parseWinningNumbers("1,2,3,4,5,45")),
-                new Lotto(WinningNumbersParser.parseWinningNumbers("1,2,3,4,45,44")),
-                new Lotto(WinningNumbersParser.parseWinningNumbers("1,2,3,45,44,43")),
-                new Lotto(WinningNumbersParser.parseWinningNumbers("1,45,44,43,42,41"))
+                new Lotto(WinningNumbersParser.parse("1,2,3,4,5,6")),
+                new Lotto(WinningNumbersParser.parse("1,2,3,4,5,7")),
+                new Lotto(WinningNumbersParser.parse("1,2,3,4,5,45")),
+                new Lotto(WinningNumbersParser.parse("1,2,3,4,45,44")),
+                new Lotto(WinningNumbersParser.parse("1,2,3,45,44,43")),
+                new Lotto(WinningNumbersParser.parse("1,45,44,43,42,41"))
         );
 
         //when
@@ -85,9 +90,9 @@ class LottoResultCalculatorTest {
     void shouldAggregateMultipleSameRank() {
         //given
         List<Lotto> lottos = List.of(
-                new Lotto(WinningNumbersParser.parseWinningNumbers("1,2,3,40,41,42")),
-                new Lotto(WinningNumbersParser.parseWinningNumbers("1,2,3,10,11,12")),
-                new Lotto(WinningNumbersParser.parseWinningNumbers("1,2,3,20,21,22"))
+                new Lotto(WinningNumbersParser.parse("1,2,3,40,41,42")),
+                new Lotto(WinningNumbersParser.parse("1,2,3,10,11,12")),
+                new Lotto(WinningNumbersParser.parse("1,2,3,20,21,22"))
         );
 
         //when

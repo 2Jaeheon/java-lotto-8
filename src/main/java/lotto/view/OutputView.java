@@ -1,9 +1,9 @@
 package lotto.view;
 
 import java.util.List;
-import lotto.domain.Lotto;
-import lotto.domain.LottoStatistics;
-import lotto.domain.Rank;
+import lotto.domain.model.Lotto;
+import lotto.domain.model.LottoStatistics;
+import lotto.domain.model.Rank;
 
 public class OutputView {
     private static final String PURCHASE_MESSAGE_FORMAT = "%d개를 구매했습니다.";

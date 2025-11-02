@@ -1,16 +1,16 @@
 package lotto.application;
 
 import java.util.List;
-import lotto.domain.Lotto;
-import lotto.domain.LottoResultCalculator;
-import lotto.domain.LottoSeller;
-import lotto.domain.LottoStatistics;
-import lotto.domain.Money;
-import lotto.domain.WinningNumbers;
+import lotto.domain.model.Lotto;
+import lotto.domain.service.LottoResultCalculator;
+import lotto.domain.service.LottoSeller;
+import lotto.domain.model.LottoStatistics;
+import lotto.domain.model.Money;
+import lotto.domain.model.WinningNumbers;
 import lotto.view.InputView;
 import lotto.view.OutputView;
-import lotto.view.converter.MoneyParser;
-import lotto.view.converter.WinningNumbersParser;
+import lotto.parser.MoneyParser;
+import lotto.parser.WinningNumbersParser;
 
 public class LottoController {
     private final LottoSeller lottoSeller;
@@ -56,10 +56,10 @@ public class LottoController {
     // 값 검증은 도메인(WinningNumbers)에 위임.
     private WinningNumbers requestWinningNumbers() {
         String rawWinning = InputView.readWinningNumbers();
-        List<Integer> numbers = WinningNumbersParser.parseWinningNumbers(rawWinning);
+        List<Integer> numbers = WinningNumbersParser.parse(rawWinning);
 
         String rawBonus = InputView.readBonusNumber();
-        int bonus = WinningNumbersParser.parseBonusNumber(rawBonus);
+        int bonus = WinningNumbersParser.parseBonus(rawBonus);
 
         return new WinningNumbers(numbers, bonus);
     }
