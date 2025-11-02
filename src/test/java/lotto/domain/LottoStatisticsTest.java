@@ -64,4 +64,66 @@ class LottoStatisticsTest {
         assertThat(newStatistics.countOf(Rank.FIRST)).isEqualTo(1);
         assertThat(newStatistics.countOf(Rank.SECOND)).isEqualTo(1);
     }
+
+    @DisplayName("총 상금 및 수익률 계산이 정확하다")
+    @Test
+    void shouldReturnTotalPrizeAndProfitRate() {
+        // given
+        List<Rank> ranks = List.of(Rank.FIFTH);
+        LottoStatistics stats = LottoStatistics.createStatistics(ranks);
+        long totalSpent = 8000;
+
+        // when
+        long prize = stats.totalPrize();
+        double rate = stats.profitRate(totalSpent);
+
+        // then
+        assertThat(prize).isEqualTo(Rank.FIFTH.calculatePrize());
+        assertThat(rate).isEqualTo(62.5);
+    }
+
+    @DisplayName("총 상금 합산을 계산한다")
+    @Test
+    void shouldCalculateTotalPrize() {
+        //given
+        List<Rank> ranks = List.of(
+                Rank.FIRST, Rank.FIRST,
+                Rank.THIRD,
+                Rank.FIFTH, Rank.FIFTH, Rank.FIFTH
+        );
+        LottoStatistics stats = LottoStatistics.createStatistics(ranks);
+
+        //when
+        long expected = 2 * Rank.FIRST.calculatePrize()
+                + 1 * Rank.THIRD.calculatePrize()
+                + 3 * Rank.FIFTH.calculatePrize();
+
+        //then
+        assertThat(stats.totalPrize()).isEqualTo(expected);
+    }
+
+    @DisplayName("총 지출이 0 이하이면 수익률은 0.0%이다")
+    @Test
+    void shouldReturnZeroWhenTotalSpentNonPositive() {
+        //given
+        LottoStatistics stats = LottoStatistics.createStatistics(List.of());
+
+        //when & then
+        assertThat(stats.profitRate(0)).isEqualTo(0.0);
+        assertThat(stats.profitRate(-1000)).isEqualTo(0.0);
+    }
+
+    @DisplayName("수익률을 계산한다")
+    @Test
+    void shouldComputeProfitRate() {
+        //given
+        LottoStatistics stats = LottoStatistics.createStatistics(List.of(Rank.FIFTH));
+
+        //when
+        long totalSpent = 8000;
+        double rate = stats.profitRate(totalSpent);
+
+        //then
+        assertThat(rate).isEqualTo(62.5);
+    }
 }

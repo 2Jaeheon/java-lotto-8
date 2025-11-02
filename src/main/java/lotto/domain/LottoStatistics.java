@@ -29,4 +29,19 @@ public class LottoStatistics {
     public int countOf(Rank rank) {
         return counts.get(rank);
     }
+
+    public long totalPrize() {
+        long sum = 0L;
+        for (Rank rank : Rank.values()) {
+            sum += rank.calculatePrize() * (long) counts.get(rank);
+        }
+        return sum;
+    }
+
+    public double profitRate(long totalSpent) {
+        if (totalSpent <= 0) {
+            return 0.0;
+        }
+        return (double) totalPrize() / (double) totalSpent * 100.0;
+    }
 }
